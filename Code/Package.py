@@ -17,7 +17,3 @@ class Package:
         self.deliveryDeadline = deliveryDeadline
         self.sKilo = sKilo
         self.notes = notes
-    def getPackageID(self):
-        return self.packageID
-    def getAddress(self):
-        return self.address
