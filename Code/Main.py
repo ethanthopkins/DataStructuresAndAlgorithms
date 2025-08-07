@@ -5,13 +5,18 @@ import csv
 #declare hashtable
 hashTable = MyHashTable()
 
-#parse csv
+#parse packages csv
 with open('Materials/package_list.csv') as packageListCSV:
-    readerOBJ = csv.reader(packageListCSV)
-    for index, row in enumerate(readerOBJ):
-        instance = "package" + str(index + 1)
+    readerPackage = csv.reader(packageListCSV)
+    for index, row in enumerate(readerPackage):
         instance = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
         hashTable.insert(index + 1, instance)
+
+#parse distance csv
+with open('Materials/distance_table') as distanceListCSV:
+    readerDistance = csv.reader(distanceListCSV)
+    for row in readerDistance:
+        
 
 #print(hashTable.search(6).notes)
 
