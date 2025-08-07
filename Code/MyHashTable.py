@@ -1,5 +1,5 @@
 class MyHashTable:
-    def __init__(self, initialCapacity = 10):
+    def __init__(self, initialCapacity):
         self.table = []
         for i in range(initialCapacity):
             self.table.append([])
