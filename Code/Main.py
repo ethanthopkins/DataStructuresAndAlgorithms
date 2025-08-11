@@ -44,16 +44,24 @@ while(len(truck1.packages) != 16):
     for i in range(htPackagesLength):
         try:
             packageAddress = hashTablePackages.search(i + 1).address
-        except ValueError:
+        except AttributeError:
             continue
         for j, each in enumerate(addressList):
             if (each == currentAddress):
                 currentAddressIndex = j
+                break
+        for n, each in enumerate(addressList):
             if (each == packageAddress):
-                packageDistance = float(hashTableDistance.search(currentAddressIndex)[j])
-                if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
-                    minimum = packageDistance
-                    packageIndexToLoad = i + 1 
+                destinationPackage = n
+                break  
+        try:
+            packageDistance = float(hashTableDistance.search(currentAddressIndex)[n])
+        except ValueError:
+            continue
+        if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
+            minimum = packageDistance
+            packageIndexToLoad = i + 1 
+
     truck1.packages.append(hashTablePackages.search(packageIndexToLoad))  
     tempAddress = hashTablePackages.search(packageIndexToLoad)  
     currentAddress = tempAddress.address
@@ -62,5 +70,6 @@ while(len(truck1.packages) != 16):
     j = 0
     minimum = 100
 
-print(truck1.packages)
+for package in truck1.packages:
+    print("ID: " + package.packageID + " address: " + package.address)
     
