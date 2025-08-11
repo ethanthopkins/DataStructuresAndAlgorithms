@@ -40,26 +40,27 @@ with open('Materials/distance_table.csv') as distanceListCSV:
         hashTableDistance.insert(m, columns[m])  
         htDistanceLength = m
 #core logic
-for i in range(htPackagesLength):
-    #set temp var to string address of lsit of packages
-    packageAddress = hashTablePackages.search(i + 1).address
-    #iterate thru address list. 
-    for j, each in enumerate(addressList):
-        #if the current address is equal to the package selected
-        if (each == currentAddress):
-            currentAddressIndex = j
-        if (each == packageAddress):
-            #save the index of where the address is located in list
-            #use that index to search within the hashtable to find the distance to that address
-            packageDistance = float(hashTableDistance.search(currentAddressIndex)[j])
-            if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
-                minimum = packageDistance
-                packageIndexToLoad = i + 1 
+while(len(truck1.packages) != 16):
+    for i in range(htPackagesLength):
+        try:
+            packageAddress = hashTablePackages.search(i + 1).address
+        except ValueError:
+            continue
+        for j, each in enumerate(addressList):
+            if (each == currentAddress):
+                currentAddressIndex = j
+            if (each == packageAddress):
+                packageDistance = float(hashTableDistance.search(currentAddressIndex)[j])
+                if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
+                    minimum = packageDistance
+                    packageIndexToLoad = i + 1 
+    truck1.packages.append(hashTablePackages.search(packageIndexToLoad))  
+    tempAddress = hashTablePackages.search(packageIndexToLoad)  
+    currentAddress = tempAddress.address
+    hashTablePackages.remove(packageIndexToLoad)
+    i = 0
+    j = 0
+    minimum = 100
 
-print(hashTablePackages.search(packageIndexToLoad).address)
-#load the trucks
-#check to see if the truck is full
-#look at the list of packages for addresses
-#see which address has the shortage distance from current location
-#while(len(truck1.packages) < 16):
+print(truck1.packages)
     
