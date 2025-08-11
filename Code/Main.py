@@ -23,13 +23,17 @@ with open('Materials/package_list.csv') as packageListCSV:
 #parse distance csv
 with open('Materials/distance_table_2.csv') as distanceListCSV:
     readerDistance = csv.reader(distanceListCSV)
+    next(readerDistance)
+    #addressList = list(readerDistance)[1]
     rows = list(readerDistance)
     columns = list(zip(*rows))
+ 
     for index, each in enumerate(columns):
-        hashTableDistance.insert(index, columns[index])
-        #print(columns[index + 2][0])   
+        hashTableDistance.insert(index, columns[index])  
 
-hashTableDistance.search("1060 Dalton Ave S")
+#print(addressList)
+#print("")
+print(hashTableDistance.search(0))
 #load the trucks
 #check to see if the truck is full
 #look at the list of packages for addresses
