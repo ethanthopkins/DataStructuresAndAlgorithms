@@ -54,9 +54,9 @@ for i in range(htPackagesLength):
             packageDistance = float(hashTableDistance.search(currentAddressIndex)[j])
             if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
                 minimum = packageDistance
-                packageIndexToLoad = i 
-                truck1.packages.append(hashTablePackages.search(packageIndexToLoad))
-                
+                packageIndexToLoad = i + 1 
+
+print(hashTablePackages.search(packageIndexToLoad).address)
 #load the trucks
 #check to see if the truck is full
 #look at the list of packages for addresses
