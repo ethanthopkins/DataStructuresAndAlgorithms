@@ -16,7 +16,7 @@ class Parsing:
                 for k, row in enumerate(readerPackage):
                     instance = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
                     self.hashTablePackages.insert(k + 1, instance)
-                    htPackagesLength = k + 1
+                    self.htPackagesLength = k + 1
     def parseDistance(self):
         #get distances in a hashmap
         with open('Materials/distance_table.csv') as distanceListCSV: 

@@ -1,11 +1,12 @@
 class Truck:
-    currentAddress = "4001 South 700 East"
-    speed = 18 #miles per hour
-    packages = []
-    minimum = 100
-    packageDistance = 1
+    def __init__(self):
+        self.currentAddress = "4001 South 700 East"
+        self.speed = 18 #miles per hour
+        self.packages = []
+        self.minimum = 100
+        self.packageDistance = 1
 
-    def loadPackages(self, htPackagesLength, hashTablePackages, addressList):
+    def loadPackages(self, htPackagesLength, hashTablePackages, hashTableDistance, addressList):
         while(len(self.packages) != 16):
             for i in range(htPackagesLength):
                 try:
@@ -21,19 +22,19 @@ class Truck:
                         destinationPackage = n
                         break  
                 try:
-                    packageDistance = float(self.hashTableDistance.search(currentAddressIndex)[n])
+                    self.packageDistance = float(hashTableDistance.search(currentAddressIndex)[destinationPackage])
                 except ValueError:
                     continue
-                if (packageDistance < minimum): #if the distance is less that the minimum found, set minimum to the stiance
-                    minimum = packageDistance
+                if (self.packageDistance < self.minimum): #if the distance is less that the minimum found, set minimum to the stiance
+                    self.minimum = self.packageDistance
                     packageIndexToLoad = i + 1 
+            self.packages.append(hashTablePackages.search(packageIndexToLoad)) 
+            i = 0
+            j = 0
+            self.minimum = 100
+            tempAddress = hashTablePackages.search(packageIndexToLoad)
+            self.currentAddress = tempAddress.address
+            hashTablePackages.remove(packageIndexToLoad)
 
-        self.packages.append(self.hashTablePackages.search(packageIndexToLoad))  
-        tempAddress = self.hashTablePackages.search(packageIndexToLoad)  
-        currentAddress = tempAddress.address
-        self.hashTablePackages.remove(packageIndexToLoad)
-        i = 0
-        j = 0
-        minimum = 100
     def getPackages(self):
         return self.packages
