@@ -17,5 +17,5 @@ class Package:
         self.deliveryDeadline = deliveryDeadline
         self.sKilo = sKilo
         self.notes = notes
-    def getPackages(self):
-        return self.hashTablePackages
+    def getAddress(self):
+        return self.address

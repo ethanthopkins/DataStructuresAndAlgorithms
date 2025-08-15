@@ -26,3 +26,5 @@ class MyHashTable:
                 del bucket_list[i]
                 return
         return
+    def isEmpty(self):
+        return all(len(bucket) == 0 for bucket in self.table)
