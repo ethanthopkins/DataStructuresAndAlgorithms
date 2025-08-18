@@ -1,11 +1,15 @@
 from MyHashTable import MyHashTable
 from datetime import datetime, time, timedelta
+from Package import Package
 
 class Truck:
     speed = 18 #miles per hour
     minutesInHour = 60
+    secondsInMinute = 60
     currentTime = datetime.combine(datetime.today(), time(hour = 8))
-    def __init__(self):
+    def __init__(self, id):
+        self.id = id
+        self.totalMileage = 0
         self.currentAddress = "4001 South 700 East"
         self.packages = []
         self.packagesLoaded = 0
@@ -17,7 +21,11 @@ class Truck:
                 #iterate through all packages.
                 for i in range(htPackagesLength):
                     try:
-                        packageAddress = hashTablePackages.search(i + 1).address
+                        package = hashTablePackages.search(i + 1)
+                        packageAddress = package.address
+                        #if the package can only be on truck 2 skip it
+                        if ((package.getOnlyTruck2()) and (self.id != 2)):
+                            continue
                     except AttributeError:
                         continue
                     #find the index of the current address
@@ -41,13 +49,10 @@ class Truck:
                     if (self.packageDistance < self.minimum): #if the distance is less that the minimum found, set minimum to the stiance
                         self.minimum = self.packageDistance
                         packageIndexToLoad = i + 1 
-                timeTraveledTemp = (self.packageDistance / Truck.speed) * Truck.minutesInHour
-                hoursTraveled = int(timeTraveledTemp // 60)
-                minutesTraveled = int(timeTraveledTemp % 60)
-                timeTraveled = timedelta(hours = hoursTraveled, minutes = minutesTraveled)
-                self.currentTime = self.currentTime + timeTraveled
+                self.calculateTime()
                 self.packages.append([hashTablePackages.search(packageIndexToLoad), self.currentTime]) #load the package with the shortest distance into the truck. 
                 self.packagesLoaded += 1
+                self.totalMileage += self.packageDistance
                 #reset all the looping variables so it can accurately pull the indices of the addresses
                 i = 0
                 j = 0
@@ -56,5 +61,17 @@ class Truck:
                 self.currentAddress = tempPackageObject.getAddress()
                 #remove the package so it is not found again
                 hashTablePackages.remove(packageIndexToLoad)
+            self.packageDistance = float(hashTableDistance.search(currentAddressIndex)[0])
+            self.totalMileage += self.packageDistance
+            self.calculateTime()
+            hubHolderPackage = Package(0, "4001 South 700 East", "Salt Lake City", "Utah", 11111, "", 0, "")
+            self.packages.append([hubHolderPackage, self.currentTime])
+    def calculateTime(self):
+        timeTraveledTemp = (self.packageDistance / Truck.speed) * Truck.minutesInHour * Truck.secondsInMinute
+        hoursTraveled = int(timeTraveledTemp // (60 * 60))
+        minutesTraveled = int(timeTraveledTemp // 60)
+        secondsTraveled = int(timeTraveledTemp % 60)
+        timeTraveled = timedelta(hours = hoursTraveled, minutes = minutesTraveled, seconds = secondsTraveled)
+        self.currentTime = self.currentTime + timeTraveled
     def getPackages(self):
         return self.packages
