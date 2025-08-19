@@ -6,8 +6,7 @@ class Truck:
     speed = 18 #miles per hour
     minutesInHour = 60
     secondsInMinute = 60
-    currentTime = datetime.combine(datetime.today(), time(hour = 8))
-    def __init__(self, id):
+    def __init__(self, id, currentTime):
         self.id = id
         self.totalMileage = 0
         self.currentAddress = "4001 South 700 East"
@@ -15,6 +14,7 @@ class Truck:
         self.packagesLoaded = 0
         self.minimum = 100
         self.packageDistance = 1
+        self.currentTime = currentTime
     def loadPackages(self, htPackagesLength, hashTablePackages, hashTableDistance, addressList):
             #if the truck is not full and there are still packages to load
             while((self.packagesLoaded != 16) and (not hashTablePackages.isEmpty())):
@@ -75,3 +75,7 @@ class Truck:
         self.currentTime = self.currentTime + timeTraveled
     def getPackages(self):
         return self.packages
+    def getCurrentTime(self):
+        return self.currentTime
+    def setCurrentTime(self, currentTime):
+        self.currentTime = currentTime
