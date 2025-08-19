@@ -41,6 +41,12 @@ class Package:
         return self.address
     def setAddress(self, newAddress):
         self.address = newAddress
+    def setCity(self, city):
+        self.city = city
+    def setState(self, state):
+        self.state = state
+    def setZip(self, zip):
+        self.zip = zip
     def getDelayed(self):
         return self.delayed
     def getTogetherStatus(self):

@@ -34,11 +34,23 @@ class Truck:
                         packageAddress = package.address
                         #if the package can only be on truck 2 or is delayed skip it
                         if (self.id != 2):
-                            if (package.getOnlyTruck2()):
+                            if (package.getOnlyTruck2()): #the packages that have to be on 2
                                 continue
-                            if (package.getDelayed()):
+                            if (package.getDelayed()): #the packages that arrive late
                                 continue
-                        #if the package has to be delivered with other packages throw it on truck 3
+                            if (package.getPackageID() == 9): #the package with the incorrect address
+                                package.setAddress("410 S State St.")
+                                package.setCity("Salt Lake City")
+                                package.setState("UT")
+                                package.setzip(84111)
+                                currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                                destinationPackage = self.getAddressIndex(hashTablePackages.search(15).getAddress(), addressList) #find the index of the current destination package
+                                packageIndexToLoad = 9
+                                break
+                        else:
+                            if (package.getPackageID() == 9):
+                                continue
+                        #load the deadline packages on truck 1 so it gets there before the deadline
                         if (self.id == 1):
                             if (not package.getTogetherStatus()):
                                 if (package.getDeadlineStatus()):
@@ -46,6 +58,7 @@ class Truck:
                                     destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
                                     packageIndexToLoad = i + 1
                                     break
+                        #if the package has to be delivered with other packages throw it on truck 3                               
                         if (self.id != 3):
                             if (package.getTogetherStatus()):
                                 continue
