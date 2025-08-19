@@ -20,6 +20,7 @@ class Package:
         self.onlyTruck2 = False
         self.delayed = False
         self.together = False
+        self.deadline = False
         self.checkConditions()
     def checkConditions(self):
         if "truck 2" in self.notes:
@@ -29,6 +30,9 @@ class Package:
         togetherPackages = [13, 14, 15, 16, 19, 20]
         if (self.packageID in togetherPackages):
             self.together = True
+        deadlinePackages = [1, 6, 13, 14, 15, 16, 20, 25, 29, 30, 31, 34, 37, 40]
+        if (self.packageID in deadlinePackages): 
+            self.deadline = True
     def getOnlyTruck2(self):
         return self.onlyTruck2
     def getPackageID(self):
@@ -41,3 +45,5 @@ class Package:
         return self.delayed
     def getTogetherStatus(self):
         return self.together
+    def getDeadlineStatus(self):
+        return self.deadline

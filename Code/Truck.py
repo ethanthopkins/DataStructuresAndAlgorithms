@@ -20,6 +20,15 @@ class Truck:
             while((self.packagesLoaded != 16) and (not hashTablePackages.isEmpty())):
                 #iterate through all packages.
                 for i in range(htPackagesLength):
+                    #if the truck is 3 then load 15 first. It has an early delivery deadline
+                    try:
+                        if ((hashTablePackages.search(15) is not None) and (self.id == 3)):
+                            currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                            destinationPackage = self.getAddressIndex(hashTablePackages.search(15).getAddress(), addressList) #find the index of the current destination package
+                            packageIndexToLoad = 15
+                            break
+                    except AttributeError:
+                        continue
                     try:
                         package = hashTablePackages.search(i + 1)
                         packageAddress = package.address
@@ -30,21 +39,32 @@ class Truck:
                             if (package.getDelayed()):
                                 continue
                         #if the package has to be delivered with other packages throw it on truck 3
+                        if (self.id == 1):
+                            if (not package.getTogetherStatus()):
+                                if (package.getDeadlineStatus()):
+                                    currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                                    destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
+                                    packageIndexToLoad = i + 1
+                                    break
                         if (self.id != 3):
                             if (package.getTogetherStatus()):
                                 continue
+                        #deliver the packages with deadlines first
+                        else:
+                            if (package.getTogetherStatus()):
+                                if (package.getDeadlineStatus()):
+                                    currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                                    destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
+                                    packageIndexToLoad = i + 1
+                                    break
+                                currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                                destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
+                                packageIndexToLoad = i + 1
+                                break
                     except AttributeError:
                         continue
-                    #find the index of the current address
-                    for j, each in enumerate(addressList):
-                        if (each == self.currentAddress):
-                            currentAddressIndex = j
-                            break
-                    #find the index of the current destination package
-                    for n, each in enumerate(addressList):
-                        if (each == packageAddress):
-                            destinationPackage = n
-                            break  
+                    currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
+                    destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
                     #get the attached distance using the index of the current address and destination address\
                     #when the addresses are parsed, it is set up to align
                     try:
@@ -73,6 +93,12 @@ class Truck:
             self.calculateTime()
             hubHolderPackage = Package(0, "4001 South 700 East", "Salt Lake City", "Utah", 11111, "", 0, "")
             self.packages.append([hubHolderPackage, self.currentTime])
+    def getAddressIndex(self, address, addressList):
+        for j, each in enumerate(addressList):
+            if (each == address):
+                currentAddressIndex = j
+                break
+        return j
     def calculateTime(self):
         timeTraveledTemp = (self.packageDistance / Truck.speed) * Truck.minutesInHour * Truck.secondsInMinute
         hoursTraveled = int(timeTraveledTemp // (60 * 60))
