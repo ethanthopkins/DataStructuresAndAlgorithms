@@ -58,15 +58,15 @@ for package3 in truck3.getPackages():
 
 
 #test
-#print("truck 1: " + str(truck1.totalMileage))
-#for element1 in truck1.getPackages():
-#    print("ID: " + str(element1[0].getPackageID()) + " Address: " + element1[0].getAddress() + " TIME: " + str(element1[1].time()))
-#print("")
-#print("truck 2: " + str(truck2.totalMileage))
-#for element2 in truck2.getPackages():
-#    print("ID: " + str(element2[0].getPackageID()) + " Address: " + element2[0].getAddress() + " TIME: " + str(element2[1].time()))
-#print("")
-#print("truck 3: " + str(truck3.totalMileage))
-#for element3 in truck3.getPackages():    
-#    print("ID: " + str(element3[0].getPackageID()) + " Address: " + element3[0].getAddress() + " TIME: " + str(element3[1].time()))
+print("truck 1: " + str(truck1.totalMileage))
+for element1 in truck1.getPackages():
+    print("ID: " + str(element1[0].getPackageID()) + " Address: " + element1[0].getAddress() + " TIME: " + str(element1[1].time()))
+print("")
+print("truck 2: " + str(truck2.totalMileage))
+for element2 in truck2.getPackages():
+    print("ID: " + str(element2[0].getPackageID()) + " Address: " + element2[0].getAddress() + " TIME: " + str(element2[1].time()))
+print("")
+print("truck 3: " + str(truck3.totalMileage))
+for element3 in truck3.getPackages():    
+    print("ID: " + str(element3[0].getPackageID()) + " Address: " + element3[0].getAddress() + " TIME: " + str(element3[1].time()))
 

@@ -7,10 +7,9 @@ class Package:
     deliveryDeadline = ""
     sKilo = 0
     notes = ""
-    onlyTruck2 = False
 
     def __init__(self, packageID, address, city, state, zip, deliveryDeadline, sKilo, notes):
-        self.packageID = packageID
+        self.packageID = int(packageID)
         self.address = address
         self.city = city
         self.state = state
@@ -18,10 +17,18 @@ class Package:
         self.deliveryDeadline = deliveryDeadline
         self.sKilo = sKilo
         self.notes = notes
+        self.onlyTruck2 = False
+        self.delayed = False
+        self.together = False
         self.checkConditions()
     def checkConditions(self):
         if "truck 2" in self.notes:
             self.onlyTruck2 = True
+        if "Delayed" in self.notes:
+            self.delayed = True
+        togetherPackages = [13, 14, 15, 16, 19, 20]
+        if (self.packageID in togetherPackages):
+            self.together = True
     def getOnlyTruck2(self):
         return self.onlyTruck2
     def getPackageID(self):
@@ -30,3 +37,7 @@ class Package:
         return self.address
     def setAddress(self, newAddress):
         self.address = newAddress
+    def getDelayed(self):
+        return self.delayed
+    def getTogetherStatus(self):
+        return self.together

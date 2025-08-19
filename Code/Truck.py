@@ -23,9 +23,16 @@ class Truck:
                     try:
                         package = hashTablePackages.search(i + 1)
                         packageAddress = package.address
-                        #if the package can only be on truck 2 skip it
-                        if ((package.getOnlyTruck2()) and (self.id != 2)):
-                            continue
+                        #if the package can only be on truck 2 or is delayed skip it
+                        if (self.id != 2):
+                            if (package.getOnlyTruck2()):
+                                continue
+                            if (package.getDelayed()):
+                                continue
+                        #if the package has to be delivered with other packages throw it on truck 3
+                        if (self.id != 3):
+                            if (package.getTogetherStatus()):
+                                continue
                     except AttributeError:
                         continue
                     #find the index of the current address
