@@ -42,9 +42,9 @@ class Truck:
                                 package.setAddress("410 S State St.")
                                 package.setCity("Salt Lake City")
                                 package.setState("UT")
-                                package.setzip(84111)
+                                package.setZip(84111)
                                 currentAddressIndex = self.getAddressIndex(self.currentAddress, addressList) #find the index of the current address
-                                destinationPackage = self.getAddressIndex(hashTablePackages.search(15).getAddress(), addressList) #find the index of the current destination package
+                                destinationPackage = self.getAddressIndex(packageAddress, addressList) #find the index of the current destination package
                                 packageIndexToLoad = 9
                                 break
                         else:

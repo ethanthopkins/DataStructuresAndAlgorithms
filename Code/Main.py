@@ -40,21 +40,21 @@ for package1 in truck1.getPackages():
     if ((package1[1] >= timeCompStart2) and (package1[1] <= timeCompEnd2)):
         comp2.append(package1[0])
     if ((package1[1] >= timeCompStart3) and (package1[1] <= timeCompEnd3)):
-        comp3.append(pacakge1[0])
+        comp3.append(package1[0])
 for package2 in truck2.getPackages():
     if ((package2[1] >= timeCompStart1) and (package2[1] <= timeCompEnd1)):
         comp1.append(package1[0])
     if ((package2[1] >= timeCompStart2) and (package2[1] <= timeCompEnd2)):
         comp2.append(package1[0])
     if ((package2[1] >= timeCompStart3) and (package2[1] <= timeCompEnd3)):
-        comp3.append(pacakge1[0])
+        comp3.append(package2[0])
 for package3 in truck3.getPackages():
     if ((package3[1] >= timeCompStart1) and (package3[1] <= timeCompEnd1)):
         comp1.append(package1[0])
     if ((package3[1] >= timeCompStart2) and (package3[1] <= timeCompEnd2)):
         comp2.append(package1[0])
     if ((package3[1] >= timeCompStart3) and (package3[1] <= timeCompEnd3)):
-        comp3.append(pacakge1[0])
+        comp3.append(package3[0])
 
 
 #test
