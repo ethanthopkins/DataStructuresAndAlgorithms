@@ -64,15 +64,36 @@ for package3 in truck3.getPackages():
 
 print("G1: ")
 for index1, status1 in enumerate(comp1):
-    print("Count", index1, "Package ID: ", status1[1].getPackageID())
+    print("PACKAGE ID:", status1[1].getPackageID(), 
+          "ADDRESS:", status1[1].getAddress(), 
+          "CITY:", status1[1].getCity(),
+          "STATE:", status1[1].getState(),
+          "ZIP", status1[1].getZip(),
+          "DELIVERY DEADLINE:", status1[1].getDeliveryDeadline(),
+          "SKILO:", status1[1].getSKilo(),
+          "NOTES:", status1[1].getNotes())
 print("")
 print("G2:")
 for index2, status2 in enumerate(comp2):
-    print("Count", index2, "Package ID: ", status2[1].getPackageID())
+    print("PACKAGE ID:", status2[1].getPackageID(), 
+          "ADDRESS:", status2[1].getAddress(), 
+          "CITY:", status2[1].getCity(),
+          "STATE:", status2[1].getState(),
+          "ZIP", status2[1].getZip(),
+          "DELIVERY DEADLINE:", status2[1].getDeliveryDeadline(),
+          "SKILO:", status2[1].getSKilo(),
+          "NOTES:", status2[1].getNotes())
 print("")
 print("G3")
 for index3, status3 in enumerate(comp3):
-    print("Count", index3, "Package ID: ", status3[1].getPackageID())
+    print("PACKAGE ID:", status3[1].getPackageID(), 
+          "ADDRESS:", status3[1].getAddress(), 
+          "CITY:", status3[1].getCity(),
+          "STATE:", status3[1].getState(),
+          "ZIP", status3[1].getZip(),
+          "DELIVERY DEADLINE:", status3[1].getDeliveryDeadline(),
+          "SKILO:", status3[1].getSKilo(),
+          "NOTES:", status3[1].getNotes())
 
 #test
 #print("truck 1: " + str(truck1.totalMileage))

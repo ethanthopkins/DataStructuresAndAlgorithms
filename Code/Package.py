@@ -39,6 +39,18 @@ class Package:
         return self.packageID
     def getAddress(self):
         return self.address
+    def getCity(self):
+        return self.city
+    def getState(self):
+        return self.state
+    def getZip(self):
+        return self.zip
+    def getDeliveryDeadline(self):
+        return self.deliveryDeadline
+    def getSKilo(self):
+        return self.sKilo
+    def getNotes(self):
+        return self.notes
     def setAddress(self, newAddress):
         self.address = newAddress
     def setCity(self, city):
