@@ -14,7 +14,7 @@ class Parsing:
             with open('Materials/package_list.csv') as packageListCSV:
                 readerPackage = csv.reader(packageListCSV)
                 for k, row in enumerate(readerPackage):
-                    instance = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    instance = Package(int(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7])
                     self.hashTablePackages.insert(k + 1, instance)
                     self.htPackagesLength = k + 1
     def parseDistance(self):

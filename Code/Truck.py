@@ -101,11 +101,12 @@ class Truck:
                 self.currentAddress = tempPackageObject.getAddress()
                 #remove the package so it is not found again
                 hashTablePackages.remove(packageIndexToLoad)
-            self.packageDistance = float(hashTableDistance.search(currentAddressIndex)[0])
-            self.totalMileage += self.packageDistance
-            self.calculateTime()
-            hubHolderPackage = Package(0, "4001 South 700 East", "Salt Lake City", "Utah", 11111, "", 0, "")
-            self.packages.append([hubHolderPackage, self.currentTime])
+            if (self.id == 1):
+                self.packageDistance = float(hashTableDistance.search(currentAddressIndex)[0])
+                self.totalMileage += self.packageDistance
+                self.calculateTime()
+                hubHolderPackage = Package(0, "4001 South 700 East", "Salt Lake City", "Utah", 11111, "", 0, "")
+                self.packages.append([hubHolderPackage, self.currentTime])
     def getAddressIndex(self, address, addressList):
         for j, each in enumerate(addressList):
             if (each == address):
