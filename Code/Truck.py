@@ -126,3 +126,5 @@ class Truck:
         return self.currentTime
     def setCurrentTime(self, currentTime):
         self.currentTime = currentTime
+    def getTotalMileage(self):
+        return self.totalMileage

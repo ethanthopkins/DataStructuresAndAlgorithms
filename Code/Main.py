@@ -5,106 +5,105 @@ from Truck import Truck
 from Parsing import Parsing
 from datetime import datetime, time
 
-#parse data
-parsing = Parsing()
-parsing.parsePackages()
-parsing.parseDistance()
-parsing.parseAddresses()
+class Main:
+    def __init__(self):
+        #parse data
+        self.parsing = Parsing()
+        self.parsing.parsePackages()
+        self.parsing.parseDistance()
+        self.parsing.parseAddresses()
 
-#declare trucks
-truck1 = Truck(1, datetime.combine(datetime.today(), time(hour = 8)))
-truck2 = Truck(2, datetime.combine(datetime.today(), time(hour = 8)))
-truck3 = Truck(3, datetime.combine(datetime.today(), time(hour = 8)))
+        #declare trucks
+        self.truck1 = Truck(1, datetime.combine(datetime.today(), time(hour = 8)))
+        self.truck2 = Truck(2, datetime.combine(datetime.today(), time(hour = 8)))
+        self.truck3 = Truck(3, datetime.combine(datetime.today(), time(hour = 8)))
 
-#load trucks
-truck1.loadPackages(parsing.getPackageLength(), parsing.getPackageHT(), parsing.getDistanceHT(), parsing.getAddressList())
-truck3.loadPackages(parsing.getPackageLength(), parsing.getPackageHT(), parsing.getDistanceHT(), parsing.getAddressList()) #load 3 first to ensure the packages that can only be on 2 get loaded
-truck2.setCurrentTime(truck1.getCurrentTime())
-truck2.loadPackages(parsing.getPackageLength(), parsing.getPackageHT(), parsing.getDistanceHT(), parsing.getAddressList())
+        #load trucks
+        self.truck1.loadPackages(self.parsing.getPackageLength(), self.parsing.getPackageHT(), self.parsing.getDistanceHT(), self.parsing.getAddressList())
+        self.truck3.loadPackages(self.parsing.getPackageLength(), self.parsing.getPackageHT(), self.parsing.getDistanceHT(), self.parsing.getAddressList()) #load 3 first to ensure the packages that can only be on 2 get loaded
+        self.truck2.setCurrentTime(self.truck1.getCurrentTime())
+        self.truck2.loadPackages(self.parsing.getPackageLength(), self.parsing.getPackageHT(), self.parsing.getDistanceHT(), self.parsing.getAddressList())
 
-#status of packages between time
-comp1 = []
-comp2 = []
-comp3 = []
-timeCompStart1 = datetime.combine(datetime.today(), time(8, 35)) 
-timeCompEnd1 = datetime.combine(datetime.today(), time(9, 25))
-timeCompStart2 = datetime.combine(datetime.today(), time(9, 35))
-timeCompEnd2 = datetime.combine(datetime.today(), time(10, 25))
-timeCompStart3 = datetime.combine(datetime.today(), time(12, 3))
-timeCompEnd3 = datetime.combine(datetime.today(), time(13, 12))
+    def totalMileage(self):
+        print("Truck 1 Total Mileage: ", self.truck1.getTotalMileage())
+        print("Truck 2 Total Mileage: ", self.truck2.getTotalMileage())
+        print("Truck 3 Total Mileage: ", self.truck3.getTotalMileage())
+    def taskG(self):
+        hoursStartInput = int(input("Input the start hours: "))
+        minutesStartInput = int(input("Input the start minutes: "))
+        hoursEndInput = int(input("Enter the end hours: "))
+        minutesEndInput = int(input("Enter the end minutes: "))
 
-#Task G (compare times)
-for package1 in truck1.getPackages():
-    if (package1[0].getPackageID() != 0):
-        if ((package1[1] >= timeCompStart1) and (package1[1] <= timeCompEnd1)):
-            comp1.append(["Delivered", package1[0]])
-        else: comp1.append(["En Route", package1[0]])
-        if ((package1[1] >= timeCompStart2) and (package1[1] <= timeCompEnd2)):
-            comp2.append(["Delivered", package1[0]])
-        else: comp2.append(["En Route", package1[0]])
-        if ((package1[1] >= timeCompStart3) and (package1[1] <= timeCompEnd3)):
-            comp3.append(["Delivered", package1[0]])
-        else: comp3.append(["En Route", package1[0]])
-for package2 in truck2.getPackages():
-    if (package2[0].getPackageID() != 0):
-        comp1.append(["At the hub", package2[0]])
-        comp2.append(["At the hub", package2[0]])
-        comp3.append(["At the hub", package2[0]])
-for package3 in truck3.getPackages():
-    if (package3[0].getPackageID() != 0):
-        if ((package3[1] >= timeCompStart1) and (package3[1] <= timeCompEnd1)):
-            comp1.append(["Delivered", package3[0]])
-        else: comp1.append(["En Route", package3[0]])
-        if ((package3[1] >= timeCompStart2) and (package3[1] <= timeCompEnd2)):
-            comp2.append(["Delivered", package3[0]])
-        else: comp2.append(["En Route", package3[0]])
-        if ((package3[1] >= timeCompStart3) and (package3[1] <= timeCompEnd3)):
-            comp3.append(["Delivered", package3[0]])
-        else: comp3.append(["En Route", package3[0]])
+        startTime = time(hoursStartInput, minutesStartInput)
+        endTime = time(hoursEndInput, minutesEndInput)
 
-print("G1: ")
-for index1, status1 in enumerate(comp1):
-    print("PACKAGE ID:", status1[1].getPackageID(), 
-          "ADDRESS:", status1[1].getAddress(), 
-          "CITY:", status1[1].getCity(),
-          "STATE:", status1[1].getState(),
-          "ZIP", status1[1].getZip(),
-          "DELIVERY DEADLINE:", status1[1].getDeliveryDeadline(),
-          "SKILO:", status1[1].getSKilo(),
-          "NOTES:", status1[1].getNotes())
-print("")
-print("G2:")
-for index2, status2 in enumerate(comp2):
-    print("PACKAGE ID:", status2[1].getPackageID(), 
-          "ADDRESS:", status2[1].getAddress(), 
-          "CITY:", status2[1].getCity(),
-          "STATE:", status2[1].getState(),
-          "ZIP", status2[1].getZip(),
-          "DELIVERY DEADLINE:", status2[1].getDeliveryDeadline(),
-          "SKILO:", status2[1].getSKilo(),
-          "NOTES:", status2[1].getNotes())
-print("")
-print("G3")
-for index3, status3 in enumerate(comp3):
-    print("PACKAGE ID:", status3[1].getPackageID(), 
-          "ADDRESS:", status3[1].getAddress(), 
-          "CITY:", status3[1].getCity(),
-          "STATE:", status3[1].getState(),
-          "ZIP", status3[1].getZip(),
-          "DELIVERY DEADLINE:", status3[1].getDeliveryDeadline(),
-          "SKILO:", status3[1].getSKilo(),
-          "NOTES:", status3[1].getNotes())
+        #status of packages between time
+        comp1 = []
+        comp2 = []
+        comp3 = []
+        timeCompStart1 = datetime.combine(datetime.today(), startTime) 
+        timeCompEnd1 = datetime.combine(datetime.today(), endTime)
 
-#test
-#print("truck 1: " + str(truck1.totalMileage))
-#for element1 in truck1.getPackages():
-#    print("ID: " + str(element1[0].getPackageID()) + " Address: " + element1[0].getAddress() + " TIME: " + str(element1[1].time()))
-#print("")
-#print("truck 2: " + str(truck2.totalMileage))
-#for element2 in truck2.getPackages():
-#    print("ID: " + str(element2[0].getPackageID()) + " Address: " + element2[0].getAddress() + " TIME: " + str(element2[1].time()))
-#print("")
-#print("truck 3: " + str(truck3.totalMileage))
-#for element3 in truck3.getPackages():    
-#    print("ID: " + str(element3[0].getPackageID()) + " Address: " + element3[0].getAddress() + " TIME: " + str(element3[1].time()))
-
+    #Task G (compare times)
+        for package1 in self.truck1.getPackages():
+            if (package1[0].getPackageID() != 0):
+                if ((package1[1] >= timeCompStart1) and (package1[1] <= timeCompEnd1)):
+                    #this handles the exception for package 9
+                    if ((package1[0].getPackageID() == 9) and (endTime < time(10, 20))):
+                        package1[0].setAddress("300 State St")
+                        package1[0].setCity("Salt Lake City")
+                        package1[0].setState("UT")
+                        package1[0].setZip(84103)
+                    else:
+                        package1[0].setAddress("410 S State St")
+                        package1[0].setCity("Salt Lake City")
+                        package1[0].setState("UT")
+                        package1[0].setZip(84111)
+                    comp1.append(["Delivered", package1[0]])
+                else: comp1.append(["En Route", package1[0]])
+        for package2 in self.truck2.getPackages():
+            if (package2[0].getPackageID() != 0):
+                #this handles the exception for package 9
+                if ((package1[0].getPackageID() == 9) and (endTime < time(10, 20))):
+                    package1[0].setAddress("300 State St")
+                    package1[0].setCity("Salt Lake City")
+                    package1[0].setState("UT")
+                    package1[0].setZip(84103)
+                else:
+                    package1[0].setAddress("410 S State St")
+                    package1[0].setCity("Salt Lake City")
+                    package1[0].setState("UT")
+                    package1[0].setZip(84111)
+                comp1.append(["At the hub", package2[0]])
+        for package3 in self.truck3.getPackages():
+            if (package3[0].getPackageID() != 0):
+                if ((package3[1] >= timeCompStart1) and (package3[1] <= timeCompEnd1)):
+                    #this handles the exception for package 9
+                    if ((package1[0].getPackageID() == 9) and (endTime < time(10, 20))):
+                        package1[0].setAddress("300 State St")
+                        package1[0].setCity("Salt Lake City")
+                        package1[0].setState("UT")
+                        package1[0].setZip(84103)
+                    else:
+                        package1[0].setAddress("410 S State St")
+                        package1[0].setCity("Salt Lake City")
+                        package1[0].setState("UT")
+                        package1[0].setZip(84111)
+                    comp1.append(["Delivered", package3[0]])
+                else: comp1.append(["En Route", package3[0]])
+        
+        print("Package Status ")
+        for index1, status1 in enumerate(comp1):
+            print("Status: ", status1[0])
+            print("PACKAGE ID:", status1[1].getPackageID(), 
+                "ADDRESS:", status1[1].getAddress(), 
+                "CITY:", status1[1].getCity(),
+                "STATE:", status1[1].getState(),
+                "ZIP", status1[1].getZip(),
+                "DELIVERY DEADLINE:", status1[1].getDeliveryDeadline(),
+                "SKILO:", status1[1].getSKilo(),
+                "NOTES:", status1[1].getNotes())
+            
+main = Main()
+#main.totalMileage()
+main.taskG()            
