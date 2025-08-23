@@ -94,5 +94,5 @@ class Main:
                 "SKILO:", status1[1][0].getSKilo(),
                 "NOTES:", status1[1][0].getNotes())
 main = Main()
-#main.totalMileage()
-main.taskG()            
+main.totalMileage()
+#main.taskG()            
