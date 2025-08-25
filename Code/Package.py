@@ -7,6 +7,7 @@ class Package:
     deliveryDeadline = ""
     sKilo = 0
     notes = ""
+    truckID = 0
 
     def __init__(self, packageID, address, city, state, zip, deliveryDeadline, sKilo, notes):
         self.packageID = int(packageID)
@@ -65,3 +66,7 @@ class Package:
         return self.together
     def getDeadlineStatus(self):
         return self.deadline
+    def getTruckID(self):
+        return self.truckID
+    def setTruckID(self, truckID):
+        self.truckID = truckID

@@ -81,11 +81,13 @@ class Main:
         
         print("Package Status ")
         for index1, status1 in enumerate(comp1):
+            print("Count: ", index1, end=" ")
             if (status1[0] == "Delivered"):
                 print("Status: ", status1[0], ": ", status1[1][1].time(), end=" ")
             else:
                 print("Status: ", status1[0], end=" ")    
-            print("PACKAGE ID:", status1[1][0].getPackageID(), 
+            print("Truck ID: ", status1[1][0].getTruckID(),
+                "PACKAGE ID:", status1[1][0].getPackageID(), 
                 "ADDRESS:", status1[1][0].getAddress(), 
                 "CITY:", status1[1][0].getCity(),
                 "STATE:", status1[1][0].getState(),
