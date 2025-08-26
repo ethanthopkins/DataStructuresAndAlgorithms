@@ -92,6 +92,7 @@ class Truck:
                 self.calculateTime()
                 self.packages.append([hashTablePackages.search(packageIndexToLoad), self.currentTime]) #load the package with the shortest distance into the truck. 
                 self.packagesLoaded += 1
+                hashTablePackages.search(packageIndexToLoad).setTruckID(self.id)
                 self.totalMileage += self.packageDistance
                 #reset all the looping variables so it can accurately pull the indices of the addresses
                 i = 0
