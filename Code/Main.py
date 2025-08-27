@@ -67,12 +67,22 @@ class Main:
                 else: 
                     comp1.append(["En Route", package1])
         for package2 in self.truck2.getPackages():
-            if (packageTimeCheck <= datetime.combine(datetime.today(), time(9, 5))):
+            if (packageTimeCheck < datetime.combine(datetime.today(), time(9, 5))):
                 if (package2[0].getPackageID() in [6, 25, 28, 32]):
                     comp1.append(["Delayed", package2])
                     continue
-            if (package2[0].getPackageID() != 0):
-                comp1.append(["At the hub", package2])
+                else:
+                    comp1.append(["At the hub", package2])
+            else:
+                if (package2[0].getPackageID() != 0): #if the package isn't the check
+                    #if the check is before the truck leaves
+                    if (packageTimeCheck < self.truck1.getPackages()[16][1]):
+                            comp1.append(["At the hub", package2])
+                    else:
+                        if (packageTimeCheck >= package2[1]):
+                            comp1.append(["Delivered", package2])
+                        else: 
+                            comp1.append(["En Route", package2])
         for package3 in self.truck3.getPackages():
             if (package3[0].getPackageID() != 0):
                 if (package3[1] <= packageTimeCheck):
@@ -96,5 +106,5 @@ class Main:
                 "SKILO:", status1[1][0].getSKilo(),
                 "NOTES:", status1[1][0].getNotes())
 main = Main()
-main.totalMileage()
-#main.taskG()            
+main.taskG()
+main.totalMileage()            
